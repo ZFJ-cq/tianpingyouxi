@@ -1,0 +1,33 @@
+{
+  "name": "chengzantai",
+  "version": "1.0.0",
+  "private": true,
+  "description": "称量台 · 天平找伪币逻辑推理挑战（纯静态 Next.js 小游戏）",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "test": "esbuild tests/solver.test.ts --bundle --format=esm --platform=node --outfile=tests/run.mjs --log-level=warning && node tests/run.mjs",
+    "serve": "npx --yes serve out -l 3800"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.11.17",
+    "next": "14.2.32",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "tailwind-merge": "^2.5.4",
+    "zustand": "^4.5.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.16.11",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.1",
+    "autoprefixer": "^10.4.20",
+    "esbuild": "^0.24.0",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.15",
+    "typescript": "^5.6.3"
+  }
+}

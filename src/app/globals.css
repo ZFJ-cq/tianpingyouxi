@@ -1,0 +1,263 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============ 设计令牌：宣纸 · 墨 · 鎏金 · 青玉 · 朱砂 ============ */
+:root {
+  --background: #f4efe2;
+  --background-2: #ede5d0;
+  --card: #fdfaf1;
+  --card-foreground: #2b2a26;
+  --foreground: #2b2a26;
+  --muted: #ede5d0;
+  --muted-foreground: #7c7462;
+  --primary: #2b2a26;
+  --primary-foreground: #f7f3e8;
+  --accent: #b98a1f;
+  --accent-foreground: #ffffff;
+  --border: #dccfb2;
+  --ring: #b98a1f;
+  --gold: #b98a1f;
+  --gold-soft: #e8c96a;
+  --jade: #3f7d6d;
+  --cinnabar: #b0453a;
+  --plum: #6f5a93;
+  --ash: #b3ab99;
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+/* 移动端：去除点击高亮闪烁、避免横向溢出、去掉双击缩放延迟 */
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+body {
+  overflow-x: hidden;
+}
+@media (pointer: coarse) {
+  button,
+  [role="button"] {
+    touch-action: manipulation;
+  }
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+    system-ui, sans-serif;
+  /* 宣纸纹理：细格 + 柔光 */
+  background-image:
+    radial-gradient(
+      ellipse 80% 50% at 50% -10%,
+      rgba(185, 138, 31, 0.08),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 60% 40% at 90% 100%,
+      rgba(63, 125, 109, 0.07),
+      transparent 60%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 31px,
+      rgba(43, 42, 38, 0.025) 31px,
+      rgba(43, 42, 38, 0.025) 32px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 31px,
+      rgba(43, 42, 38, 0.025) 31px,
+      rgba(43, 42, 38, 0.025) 32px
+    );
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-song {
+  font-family: "Songti SC", "STSong", "Noto Serif SC", "Source Han Serif SC",
+    "SimSun", serif;
+}
+
+.tabnum {
+  font-variant-numeric: tabular-nums;
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+}
+
+/* ============ 组件基类 ============ */
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-lg border
+      text-sm font-medium transition-all duration-150 select-none
+      disabled:opacity-40 disabled:pointer-events-none px-3.5 py-2;
+  }
+  .btn-primary {
+    @apply btn bg-[var(--primary)] text-[var(--primary-foreground)]
+      border-[var(--primary)] hover:bg-[#423f38] shadow-sm;
+  }
+  .btn-gold {
+    @apply btn text-[#5c430d] border-[var(--gold)] shadow-sm;
+    background-image: linear-gradient(160deg, #f0d68a, var(--gold));
+  }
+  .btn-gold:hover {
+    background-image: linear-gradient(160deg, #f5e2a4, #c9952a);
+  }
+  .btn-outline {
+    @apply btn bg-[var(--card)] hover:bg-[var(--muted)] shadow-sm;
+  }
+  .btn-ghost {
+    @apply btn border-transparent hover:bg-[var(--muted)];
+  }
+  .card {
+    @apply bg-[var(--card)] border border-[var(--border)] rounded-2xl
+      shadow-card;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-full border px-2.5 py-1
+      text-xs font-medium;
+  }
+}
+
+/* ============ 硬币 ============ */
+.coin-base {
+  @apply relative grid place-items-center rounded-full tabnum font-semibold
+    leading-none transition-transform duration-150;
+  box-shadow: var(--tw-shadow, inset 0 1px 0 rgba(255, 255, 255, 0.55),
+      0 1px 3px rgba(43, 42, 38, 0.35));
+}
+.coin-unknown {
+  background-image: radial-gradient(
+    circle at 32% 28%,
+    #a58fc4,
+    var(--plum) 55%,
+    #4e3f6d
+  );
+  color: #fff;
+}
+.coin-light {
+  background-image: radial-gradient(
+    circle at 32% 28%,
+    #8fc0b2,
+    var(--jade) 55%,
+    #2c5a4e
+  );
+  color: #fff;
+}
+.coin-heavy {
+  background-image: radial-gradient(
+    circle at 32% 28%,
+    #e0978c,
+    var(--cinnabar) 55%,
+    #7e2f27
+  );
+  color: #fff;
+}
+.coin-dead {
+  background-image: radial-gradient(
+    circle at 32% 28%,
+    #d9d3c4,
+    var(--ash) 55%,
+    #8f897c
+  );
+  color: #6b6558;
+  text-decoration: line-through;
+  text-decoration-color: rgba(43, 42, 38, 0.45);
+}
+
+/* ============ 动画 ============ */
+@keyframes hint-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(185, 138, 31, 0.65);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(185, 138, 31, 0);
+  }
+}
+.hint-glow {
+  animation: hint-pulse 1.4s ease-in-out infinite;
+}
+
+/* 天平托盘/待选区的放置高亮 */
+.pan-bowl {
+  transition: stroke 0.15s ease, stroke-width 0.15s ease;
+}
+.zone-active .pan-bowl {
+  stroke: var(--gold);
+  stroke-width: 2.4;
+}
+#pool-zone.zone-active {
+  outline: 2px dashed var(--gold);
+  outline-offset: 4px;
+  border-radius: 0.75rem;
+}
+
+/* solver 提示硬币的金色脉冲环（SVG） */
+@keyframes ring-pulse {
+  0%,
+  100% {
+    stroke-opacity: 1;
+    stroke-width: 2.4;
+  }
+  50% {
+    stroke-opacity: 0.3;
+    stroke-width: 3.6;
+  }
+}
+.hint-ring {
+  animation: ring-pulse 1.3s ease-in-out infinite;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.rise {
+  animation: rise 0.35s ease-out both;
+}
+
+/* 滚动条 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(43, 42, 38, 0.22);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* 模态遮罩 */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.fade-in {
+  animation: fade-in 0.2s ease-out both;
+}
